@@ -1,0 +1,14 @@
+.catalog {
+   margin-bottom: 80px;
+}
+
+@media (min-width: 1024px) {
+   .catalog {
+      margin-bottom: 100px;
+   }
+
+   .container {
+      display: flex;
+      gap: 30px;
+   }
+}

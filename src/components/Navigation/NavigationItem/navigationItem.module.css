@@ -1,0 +1,46 @@
+.itemWrapper {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-radius: 50px;
+   max-width: 130px;
+   height: 40px;
+   cursor: pointer;
+   background-color: #fff;
+   padding: 0px 14px 0px 14px;
+}
+
+.itemWrapper:hover,
+.itemWrapper:focus-visible {
+   outline: 1px solid #F86310;
+   outline-offset: -1px;
+}
+
+
+@supports not selector(:focus-visible) {
+   .itemWrapper:focus {
+      outline: 1px solid #F86310;
+      outline-offset: -1px;
+   }
+}
+
+.image {
+   width: 25px;
+}
+
+.description {
+   font-size: 16px;
+   line-height: 22px;
+   font-weight: 500;
+   padding-left: 8px;
+   letter-spacing: -0.5px;
+}
+
+.active .itemWrapper {
+   pointer-events: none;
+   background-color: #FFAB08;
+}
+
+.active .itemWrapper:focus {
+   outline: none;
+}

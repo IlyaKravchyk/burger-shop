@@ -1,97 +1,70 @@
 import burger from '../../assets/img/burger_1.jpg';
 import free from '../../assets/img/free_1.jpg';
 import hotDog from '../../assets/img/hot-dog_1.jpg';
+import { OrderItem } from './OrderItem/OrderItem';
 
-import './count.css';
-import './order.css';
-import './goods.css';
+import style from './order.module.css';
 
 export const Order = () => {
-   return (
-      <div className="catalog__order order">
-         <section className="order__wrapper">
-            <div className="order__header" tabindex="0" role="button">
-               <h2 className="order__title">Корзина</h2>
 
-               <span className="order__count">4</span>
+   const orderState = [
+      {
+         image: burger,
+         price: 689,
+         title: 'Мясная бомба',
+         weight: 520,
+         id: 1
+      },
+      {
+         image: free,
+         price: 245,
+         title: 'Картошка фри',
+         weight: 180,
+         id: 2
+      },
+      {
+         image: hotDog,
+         price: 239,
+         title: 'Жгучий хот-дог',
+         weight: 245,
+         id: 3
+      },
+   ]
+
+   return (
+      <div className={style.order}>
+         <section className={style.wrapper}>
+            <div className={style.header} tabIndex="0" role="button">
+               <h2 className={style.title}>Корзина</h2>
+
+               <span className={style.count}>4</span>
             </div>
 
-            <div className="order__wrap_list">
-               <ul className="order__list">
-                  <li className="order__item">
-                     <img className="order__image" src={burger} alt="Супер сырный" />
-
-                     <div className="order__goods goods">
-                        <h3 className="goods__title">Супер сырный</h3>
-
-                        <p className="goods__weight">512г</p>
-
-                        <p className="goods__price">1279
-                           <span className="currency">₽</span>
-                        </p>
-                     </div>
-
-                     <div className="count">
-                        <button className="count__minus">-</button>
-                        <p className="count__amount">1</p>
-                        <button className="count__plus">+</button>
-                     </div>
-                  </li>
-
-                  <li className="order__item">
-                     <img className="order__image" src={free} alt="Картошка фри" />
-
-                     <div className="order__goods goods">
-                        <h3 className="goods__title">Картошка фри</h3>
-
-                        <p className="goods__weight">180г</p>
-
-                        <p className="goods__price">245
-                           <span className="currency">₽</span>
-                        </p>
-                     </div>
-
-                     <div className="count">
-                        <button className="count__minus">-</button>
-                        <p className="count__amount">2</p>
-                        <button className="count__plus">+</button>
-                     </div>
-                  </li>
-
-                  <li className="order__item">
-                     <img className="order__image" src={hotDog} alt="Жгучий хот-дог" />
-
-                     <div className="order__goods goods">
-                        <h3 className="goods__title">Жгучий хот-дог</h3>
-
-                        <p className="goods__weight">245г</p>
-
-                        <p className="goods__price">239
-                           <span className="currency">₽</span>
-                        </p>
-                     </div>
-
-                     <div className="count">
-                        <button className="count__minus">-</button>
-                        <p className="count__amount">1</p>
-                        <button className="count__plus">+</button>
-                     </div>
-                  </li>
+            <div className={style.wrap_list}>
+               <ul className="list">
+                  {orderState.map(({ image, price, title, weight, id }) => <OrderItem
+                     key={id}
+                     image={image}
+                     price={price}
+                     title={title}
+                     weight={weight}
+                     id={id}
+                  />)}
                </ul>
 
-               <div className="order__total">
+               <div className={style.total}>
                   <p>Итого</p>
                   <p>
-                     <span className="order__amount">1279</span>
+                     <span className={style.amount}>1279</span>
                      <span className="currency">₽</span>
                   </p>
                </div>
 
-               <button className="order__submit">Оформить заказ</button>
+               <button className={style.submit}>Оформить заказ</button>
 
-               <div className="order__apeal">
-                  <p className="order__text">Бесплатная доставка</p>
-                  <button className="order__close">Свернуть</button>
+               <div className={style.apeal}>
+                  <p className={style.text}>Бесплатная доставка</p>
+                  <button className={style.close}>Свернуть</button>
                </div>
             </div>
          </section>

@@ -1,39 +1,34 @@
-import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+import { asyncRequestAllCategory } from '../../store/reducers/categorySlice';
 import { Container } from '../Container/Container';
+
 import style from './navigation.module.css';
+import { NavigationItem } from './NavigationItem/NavigationItem';
+
 
 export const Navigation = () => {
+
+   const { categoryData } = useSelector(state => state.category)
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      dispatch(asyncRequestAllCategory())
+   }, [])
+
+   const navItem = categoryData.map(({ category, title, image, id }) => <NavigationItem
+      key={id}
+      category={category}
+      title={title}
+      image={image}
+   />)
+
    return (
       <nav className={style.navigation}>
          <Container className={style.container}>
             <ul className={style.list}>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_burger, style.button_active)}>Бургеры</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_snack)}>Закуски</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_hotdog)}>Хот-доги</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_combo)}>Комбо</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_shawarma)}>Шаурма</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_pizza)}>Пицца</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_wok)}>Вок</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_dessert)}>Десерты</button>
-               </li>
-               <li className={style.item}>
-                  <button className={classNames(style.button, style.button_sauce)}>Соусы</button>
-               </li>
+               {navItem}
             </ul>
          </Container>
       </nav>
