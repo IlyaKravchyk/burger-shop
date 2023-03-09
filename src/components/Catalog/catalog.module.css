@@ -10,6 +10,11 @@
    gap: 10px;
 }
 
+.empty {
+   padding-top: 9px;
+   font-size: 18px;
+}
+
 @media (min-width: 1024px) {
    .order {
       padding-top: 72px;

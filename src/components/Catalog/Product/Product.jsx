@@ -1,6 +1,17 @@
+import { useDispatch } from 'react-redux';
+import { addToOrder } from '../../../store/reducers/orderSlice';
+
 import style from './product.module.css';
 
-export const Product = ({ image, price, title, weight, id }) => {
+export const Product = ({ item }) => {
+   const { image, price, title, weight, id } = item
+
+   const dispatch = useDispatch()
+
+   const clickHandler = () => {
+      dispatch(addToOrder(item))
+   }
+
    return (
       <li className="catalog__item">
          <article className={style.product}>
@@ -14,7 +25,7 @@ export const Product = ({ image, price, title, weight, id }) => {
 
             <p className={style.weight}>{weight}г</p>
 
-            <button className={style.add} type="button" id={id}>Добавить</button>
+            <button className={style.add} type="button" id={id} onClick={clickHandler}>Добавить</button>
          </article>
       </li>
    )

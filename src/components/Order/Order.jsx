@@ -1,70 +1,86 @@
-import burger from '../../assets/img/burger_1.jpg';
-import free from '../../assets/img/free_1.jpg';
-import hotDog from '../../assets/img/hot-dog_1.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { countIncrement, countDecrement, deleteProduct } from '../../store/reducers/orderSlice';
+import { modalOpen } from '../../store/reducers/modalDeliveryReducer';
+
 import { OrderItem } from './OrderItem/OrderItem';
+import { ModalDelivery } from '../Modal/ModalDelivery';
 
 import style from './order.module.css';
 
 export const Order = () => {
 
-   const orderState = [
-      {
-         image: burger,
-         price: 689,
-         title: 'Мясная бомба',
-         weight: 520,
-         id: 1
-      },
-      {
-         image: free,
-         price: 245,
-         title: 'Картошка фри',
-         weight: 180,
-         id: 2
-      },
-      {
-         image: hotDog,
-         price: 239,
-         title: 'Жгучий хот-дог',
-         weight: 245,
-         id: 3
-      },
-   ]
+   const { orderData } = useSelector(state => state.order)
+   const { isOpen } = useSelector(state => state.modal)
+
+   const dispatch = useDispatch();
+
+   const countUp = (data) => {
+      dispatch(countIncrement(data))
+   }
+   const countDown = (data) => {
+      dispatch(countDecrement(data))
+   }
+
+   const removeProduct = (id) => {
+      dispatch(deleteProduct(id))
+   }
+
+   const sumCount = () => {
+      let allCount = 0
+      orderData.forEach(({ count }) => {
+         allCount += count
+      })
+      return allCount
+   }
+
+   const allPrice = () => {
+      let allPrice = 0
+      orderData.forEach(({ price, count }) => {
+         allPrice += price * count
+      })
+      return allPrice.toFixed()
+   }
+
+   const deliveryClickHandler = () => {
+      dispatch(modalOpen())
+   }
 
    return (
-      <div className={style.order}>
+      <div className={style.order} >
          <section className={style.wrapper}>
             <div className={style.header} tabIndex="0" role="button">
                <h2 className={style.title}>Корзина</h2>
 
-               <span className={style.count}>4</span>
+               <span className={style.count}>{sumCount()}</span>
             </div>
 
             <div className={style.wrap_list}>
-               <ul className="list">
-                  {orderState.map(({ image, price, title, weight, id }) => <OrderItem
-                     key={id}
-                     image={image}
-                     price={price}
-                     title={title}
-                     weight={weight}
-                     id={id}
+               <ul className={style.list}>
+                  {orderData.map(item => <OrderItem
+                     key={item.id}
+                     item={item}
+                     countUp={countUp}
+                     countDown={countDown}
+                     removeProduct={removeProduct}
                   />)}
                </ul>
 
                <div className={style.total}>
                   <p>Итого</p>
                   <p>
-                     <span className={style.amount}>1279</span>
+                     <span className={style.amount}>{allPrice()}</span>
                      <span className="currency">₽</span>
                   </p>
                </div>
 
-               <button className={style.submit}>Оформить заказ</button>
+               <button className={style.submit} onClick={deliveryClickHandler} disabled={!!!orderData.length}>
+                  Оформить заказ
+               </button>
+
+               {isOpen && <ModalDelivery />}
 
                <div className={style.apeal}>
                   <p className={style.text}>Бесплатная доставка</p>
-                  <button className={style.close}>Свернуть</button>
                </div>
             </div>
          </section>

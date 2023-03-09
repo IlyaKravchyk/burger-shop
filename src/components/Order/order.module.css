@@ -91,6 +91,11 @@
    margin-bottom: 8px;
 }
 
+.submit:disabled {
+   color: #000;
+   background-color: #B1B1B1;
+}
+
 .apeal {
    display: flex;
    align-items: center;
