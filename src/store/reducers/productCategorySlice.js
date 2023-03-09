@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { API_URL } from "../../const";
 
 const initialState = {
    products: [],
@@ -9,7 +10,7 @@ const initialState = {
 export const asyncRequestProductCategories = createAsyncThunk(
    'productCategory/asyncRequestProductCategories',
    async (category) => {
-      const response = await fetch(`http://localhost:3024/api/product?category=${category}`)
+      const response = await fetch(`${API_URL}/api/product?category=${category}`)
       const data = await response.json()
       return data
    }
