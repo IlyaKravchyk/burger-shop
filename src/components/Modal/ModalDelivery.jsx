@@ -82,32 +82,34 @@ export const ModalDelivery = () => {
                      </label>
                   </fieldset>
 
-                  <fieldset className={style.fieldset}>
-                     <input
-                        className={style.input}
-                        type='text'
-                        name='address'
-                        placeholder='Улица, дом, квартира'
-                        value={address}
-                        onChange={changeHandler}
-                     />
-                     <input
-                        className={classNames(style.input, style.input_half)}
-                        type='number'
-                        name='floor'
-                        placeholder='Этаж'
-                        value={floor}
-                        onChange={changeHandler}
-                     />
-                     <input
-                        className={classNames(style.input, style.input_half)}
-                        type='number'
-                        name='intercom'
-                        placeholder='Домофон'
-                        value={intercom}
-                        onChange={changeHandler}
-                     />
-                  </fieldset>
+                  {
+                     format === 'delivery' && <fieldset className={style.fieldset}>
+                        <input
+                           className={style.input}
+                           type='text'
+                           name='address'
+                           placeholder='Улица, дом, квартира'
+                           value={address}
+                           onChange={changeHandler}
+                        />
+                        <input
+                           className={classNames(style.input, style.input_half)}
+                           type='number'
+                           name='floor'
+                           placeholder='Этаж'
+                           value={floor}
+                           onChange={changeHandler}
+                        />
+                        <input
+                           className={classNames(style.input, style.input_half)}
+                           type='number'
+                           name='intercom'
+                           placeholder='Домофон'
+                           value={intercom}
+                           onChange={changeHandler}
+                        />
+                     </fieldset>
+                  }
                </form>
 
                <button className={style.submit} type='submit' form='delivery'>
